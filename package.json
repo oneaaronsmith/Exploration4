@@ -1,0 +1,23 @@
+{
+  "name": "exploration4",
+  "version": "1.0.0",
+  "description": "A quiz website utilizing backbone.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index",
+    "test": "test"
+  },
+  "keywords": [
+    "Backbone"
+  ],
+  "author": "Aaron Smith",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.12.5",
+    "underscore": "^1.8.3"
+  }
+}
