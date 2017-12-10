@@ -19,42 +19,16 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
 </head>
 <body class="my-dark-blue">
-    <div class="center-align title">
-        <b>Quiz</b>
-    </div>
-    <div id="container">Loading...</div>
-
+    <div id="page-title" class="center-align title"></div>
     <div class="row">
         <div class="col m6 offset-m3">
             <div class="card my-grey hoverable">
                 <div class="card-content">
-                    <span class="card-title">Card Title</span>
-                    <p>I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.</p>
+                    <span id="card-title" class="card-title"></span>
+                    <p id="question"></p>
                 </div>
                 <div class="card-action">
-                        <form action="#">
-                            <p>
-                                <input name="group1" type="radio" id="test1" />
-                                <label for="test1">Red</label>
-                            </p>
-                            <p>
-                                <input name="group1" type="radio" id="test2" />
-                                <label for="test2">Yellow</label>
-                            </p>
-                            <p>
-                                <input class="with-gap" name="group1" type="radio" id="test3"  />
-                                <label for="test3">Green</label>
-                            </p>
-                            <p>
-                                <input name="group1" type="radio" id="test4" disabled="disabled" />
-                                <label for="test4">Brown</label>
-                            </p>
-                            <br>
-                            <div class="row">
-                                <button class="my-light-blue col s4 offset-s1 waves-effect waves-light btn">Submit</button>
-                                <button class="my-light-blue col s4 offset-s2 waves-effect waves-light btn">Skip</button>
-                            </div>
+                        <form id="form">
                         </form>￼
                 </div>
             </div>
