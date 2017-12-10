@@ -23,8 +23,11 @@
     <div class="row">
         <div class="col m6 offset-m3">
             <div class="card my-grey hoverable">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
                 <div class="card-content">
-                    <span id="card-title" class="card-title"></span>
+                    <span id="card-title" class="card-title">Loading . . .</span>
                     <p id="question"></p>
                 </div>
                 <div id="form" class="card-action">
@@ -38,11 +41,11 @@
             <p class="counter-text">Correct Answers</p>
         </div>
         <div class="col s4 center-align">
-            <div class="counter center-align">0</div>
+            <div id="wrong" class="counter center-align">0</div>
             <p class="counter-text">Wrong Answers</p>
         </div>
         <div class="col s4 center-align">
-            <div class="counter">0</div>
+            <div id="skip" class="counter">0</div>
             <p class="counter-text">Skips</p>
         </div>
     </div>

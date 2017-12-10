@@ -5,6 +5,12 @@ var questionsSkipped = 0;
 var questionsCorrect = 0;
 var questionsIncorrect = 0;
 var isChoiceCorrect = false;
+var cardTitleView = {};
+var cardQuestionView = {};
+var cardFormView = {};
+var correctAnswerView = {};
+var wrongAnswerView = {};
+var skippedAnswerView = {};
 
 //First, go ahead and send the request for some questions
 var QuestionList = Backbone.Collection.extend({
@@ -16,46 +22,53 @@ var QuestionList = Backbone.Collection.extend({
 
 var questions = new QuestionList();
 
-questions.fetch({
-    success: function(response) {
-        //console.log(response.models);
+function start() {
+    questions.fetch({
+        success: function(response) {
+            //console.log(response.models);
 
-        setTimeout(function() {
-                    questionArray = response.models;
+            setTimeout(function() {
+            questionArray = response.models;
 
-        questionArray.forEach(function(model) {
-            //console.log(model.attributes);
-        });
+            cardTitleView = new CardTitleView(questionCounter);
+            cardQuestionView = new CardQuestionView();
+            cardFormView = new CardFormView();
+            correctAnswerView = new CorrectAnswerView();
+            wrongAnswerView = new WrongAnswerView();
+            skippedAnswerView = new SkippedAnswerView();
 
-        console.log(questionArray[questionCounter-1].attributes.incorrect_answers)
+            $('.progress').hide();
+            }, 3000);
+        }
+    });
+};
 
-        var cardTitleView = new CardTitleView();
-        var cardQuestionView = new CardQuestionView();
-        var cardFormView = new CardFormView();
-        var correctAnswerView = new CorrectAnswerView();
-        var wrongAnswerView = new WrongAnswerView();
-        var skippedAnswerView = new SkippedAnswerView();
-        console.log(cardQuestionView);
-        console.log(cardFormView);
-        }, 3000);
-    }
-});
+start();
 
-/*function nextQuestion() {
-    cardTitleView.remove();
-    cardQuestionView.remove();
-    cardFormView.remove() ;
-    correctAnswerView.remove();
-    wrongAnswerView.remove();
-    skippedAnswerView.remove();
+function renewQuestions() {
+    $('.progress').show();
+    questions.fetch({
+        success: function(response) {
+            setTimeout(function() {
+                questionArray = response.models;
+                cardFormView.enableMethod();
+                $('.progress').hide();
+                updateViews();
+            }, 3000);
+        }
+    }); 
+}
 
-    cardTitleView.render();
-    cardQuestionView.render();
-    cardFormView.render();
-    correctAnswerView.render();
-    wrongAnswerView.render();
-    skippedAnswerView.render();
-} */
+function updateViews() {
+        //console.log("Does this still chill:" + cardTitleView);
+        //console.log(cardTitleView);
+        cardTitleView.render();
+        cardQuestionView.render();
+        cardFormView.render();
+        correctAnswerView.render();
+        wrongAnswerView.render();
+        skippedAnswerView.render();
+}
 
 //Define views and their behavior
 var PageTitleView = Backbone.View.extend({
@@ -64,7 +77,7 @@ var PageTitleView = Backbone.View.extend({
         this.render();
     },
     render: function(){
-        this.$el.html("<b>Quiz</b>");
+        this.$el.html("<b>Trivia</b>");
     }
 });
 
@@ -72,13 +85,7 @@ var pageTitleView = new PageTitleView();
 
 var CardTitleView = Backbone.View.extend({
     el: '#card-title',
-    events: {
-        'click .submitBtn' : 'submitEvent'
-    },
-    submitEvent: function(event) {
-        this.render();
-    },
-    initialize: function() {
+    initialize: function(counter) {
         this.render();
     },
     template: _.template("<b>Question <%= cardTitle %><b>"),
@@ -91,11 +98,10 @@ var CardQuestionView = Backbone.View.extend({
     el: '#question',
     initialize: function() {
         this.render();
-        this.listenTo(questionCounter, 'change', this.render());
     },
     template: _.template("<%= cardQuestion %>"),
     render: function() {
-        this.$el.html(this.template({cardQuestion: questionArray[questionCounter - 1].attributes.question}));
+        this.$el.html(this.template({cardQuestion: questionArray[(questionCounter - 1) % 50].attributes.question}));
     }
 });
 
@@ -107,20 +113,57 @@ var CardFormView = Backbone.View.extend({
         'click .skipBtn': 'skipEvent'
     },
     isCorrectEvent: function(event) {
-        console.log(event);
-        var radioText = $('input[name="answers"]:checked').val();
-        console.log(radioText);
-        console.log("is correct?");
+        var truth = $('input[name="answers"]:checked').val();
+
+        if(truth === 'true') {
+            isChoiceCorrect = true;
+        } else {
+            isChoiceCorrect = false;
+        }
+
+        console.log(isChoiceCorrect);
     },
     submitEvent: function(event) {
         event.preventDefault();
+        if(isChoiceCorrect == true) {
+            questionsCorrect++;
+        } else {
+            questionsIncorrect++;
+        }
+
         console.log("submit");
         questionCounter = questionCounter + 1;
-        console.log(questionCounter);
+
+        if((questionCounter - 1) % 50 == 0) {
+            this.disableMethod();
+            renewQuestions();
+        } else {
+            updateViews();
+        }   
     },
     skipEvent: function(event) {
         event.preventDefault();
         console.log("skip");
+        questionCounter++;
+        questionsSkipped++;
+        if((questionCounter - 1)% 50 == 0) {
+            this.disableMethod();
+            renewQuestions();
+        } else {
+            updateViews();
+        } 
+    },
+    disableMethod: function() {
+        this.events['click input[name="answers"]'] = undefined;
+        this.events['click .submitBtn'] = undefined;
+        this.events['click .skipBtn'] = undefined;
+        this.delegateEvents(this.events);
+    },
+    enableMethod: function() {
+        this.events['click input[name="answers"]'] = 'isCorrectEvent';
+        this.events['click .submitBtn'] = 'submitEvent';
+        this.events['click .skipBtn'] = 'skipEvent';
+        this.delegateEvents(this.events);
     },
     initialize: function() {
         this.render();
@@ -144,14 +187,14 @@ var CardFormView = Backbone.View.extend({
         </p>
         <br>
         <div class='row'>
-            <button class='my-light-blue col s4 offset-s1 waves-effect waves-light btn submitBtn'>Submit</button>
-            <button class='my-light-blue col s4 offset-s2 waves-effect waves-light btn skipBtn'>Skip</button>
+            <div class='my-light-blue col s4 offset-s1 waves-effect waves-light btn submitBtn'>Submit</div>
+            <div class='my-light-blue col s4 offset-s2 waves-effect waves-light btn skipBtn'>Skip</div>
         </div>
         </form>`),
     render: function() {
         var answers = [];
-        var wrongAnswers = questionArray[questionCounter-1].attributes.incorrect_answers;
-        var correctAnswer = questionArray[questionCounter-1].attributes.correct_answer;
+        var wrongAnswers = questionArray[(questionCounter-1) % 50].attributes.incorrect_answers;
+        var correctAnswer = questionArray[(questionCounter-1) % 50].attributes.correct_answer;
         //console.log(questionArray[questionCounter-1].attributes.incorrect_answers);
         //console.log(wrongAnswers);
         console.log(correctAnswer);
@@ -170,7 +213,6 @@ var CardFormView = Backbone.View.extend({
         this.$el.html(this.template({answer1: choice1, answer2: choice2, answer3: choice3, answer4: choice4, isTrue1: choice1 == correctAnswer ? true : false, isTrue2: choice2 == correctAnswer ? true : false, isTrue3: choice3 == correctAnswer ? true : false, isTrue4: choice4 == correctAnswer ? true : false}));
     }
 });
-
 
 var CorrectAnswerView = Backbone.View.extend({
     el: '#correct',

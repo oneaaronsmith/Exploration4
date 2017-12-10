@@ -13,7 +13,7 @@ html {
 
 .counter-text {
     font-size: 24px;
-    color: #AAABB8;
+    color: #eeeeee;
 }
 
 /*.footer {
@@ -29,7 +29,7 @@ html {
 }
 
 .my-grey {
-    background-color: #AAABB8;
+    background-color: #eeeeee;
 }
 
 .my-light-blue {
@@ -60,7 +60,11 @@ label {
 
 .title {
     font-size: 50px;
-    color: #AAABB8;
+    color: #eeeeee;
     font-family: 'Raleway', sans-serif;
     font-weight: black;
+}
+
+disable {
+    pointer-events: none;
 }
