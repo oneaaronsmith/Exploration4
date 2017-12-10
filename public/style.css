@@ -1,5 +1,10 @@
 /*  font-family: 'Raleway', sans-serif;
     font-family: 'Roboto', sans-serif; */
+html {
+    height: 100%;
+    margin: 0px;
+    width: 100%;
+}
 
 .counter {
     font-size: 76px;
@@ -11,9 +16,9 @@
     color: #AAABB8;
 }
 
-.footer {
+/*.footer {
     height: 300px;
-}
+} */
 
 .my-dark-blue {
     background-color: #25274D;
@@ -45,6 +50,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+label {
+    color: black;
+}
+
 .nav-wrapper {
     background-color: transparent;
 }
@@ -53,4 +62,5 @@ body {
     font-size: 50px;
     color: #AAABB8;
     font-family: 'Raleway', sans-serif;
+    font-weight: black;
 }
