@@ -63,8 +63,17 @@ label {
     color: #eeeeee;
     font-family: 'Raleway', sans-serif;
     font-weight: black;
+    
 }
 
 disable {
     pointer-events: none;
+}
+
+green {
+    color: green;
+}
+
+.message-text {
+    color: #eeeeee
 }
