@@ -1,10 +1,10 @@
 /*  font-family: 'Raleway', sans-serif;
     font-family: 'Roboto', sans-serif; */
-html {
+/*html {
     height: 100%;
     margin: 0px;
     width: 100%;
-}
+} */
 
 .counter {
     font-size: 76px;
@@ -16,9 +16,9 @@ html {
     color: #eeeeee;
 }
 
-/*.footer {
-    height: 300px;
-} */
+.footer {
+    height: 800px;
+}
 
 .my-dark-blue {
     background-color: #25274D;

@@ -69,6 +69,7 @@ function updateViews() {
         wrongAnswerView.render();
         skippedAnswerView.render();
         messageView.render();
+        isChoiceCorrect = false;
 }
 
 //---Start to define views and their behavior ---
@@ -80,7 +81,7 @@ var PageTitleView = Backbone.View.extend({
         this.render();
     },
     render: function(){
-        this.$el.html("<b>Trivia</b>");
+        this.$el.html("<b>Trivia - Backbone.js Exploration</b>");
     }
 });
 
@@ -134,6 +135,7 @@ var CardFormView = Backbone.View.extend({
     submitEvent: function(event) {
         //This function handles the logic behind choice submission
         event.preventDefault();
+        triviaMessage = '';
         if(isChoiceCorrect == true) {
             triviaMessage = "Correct!"
             questionsCorrect++;
