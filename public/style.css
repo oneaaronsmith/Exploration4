@@ -1,5 +1,10 @@
 /*  font-family: 'Raleway', sans-serif;
     font-family: 'Roboto', sans-serif; */
+/*html {
+    height: 100%;
+    margin: 0px;
+    width: 100%;
+} */
 
 .counter {
     font-size: 76px;
@@ -8,11 +13,11 @@
 
 .counter-text {
     font-size: 24px;
-    color: #AAABB8;
+    color: #eeeeee;
 }
 
 .footer {
-    height: 300px;
+    height: 800px;
 }
 
 .my-dark-blue {
@@ -24,7 +29,7 @@
 }
 
 .my-grey {
-    background-color: #AAABB8;
+    background-color: #eeeeee;
 }
 
 .my-light-blue {
@@ -45,12 +50,30 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+label {
+    color: black;
+}
+
 .nav-wrapper {
     background-color: transparent;
 }
 
 .title {
     font-size: 50px;
-    color: #AAABB8;
+    color: #eeeeee;
     font-family: 'Raleway', sans-serif;
+    font-weight: black;
+    
+}
+
+disable {
+    pointer-events: none;
+}
+
+green {
+    color: green;
+}
+
+.message-text {
+    color: #eeeeee
 }

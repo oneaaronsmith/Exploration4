@@ -23,32 +23,37 @@
     <div class="row">
         <div class="col m6 offset-m3">
             <div class="card my-grey hoverable">
-                <div class="card-content">
-                    <span id="card-title" class="card-title"></span>
-                    <p id="question"></p>
+                <div class="progress">
+                    <div class="indeterminate"></div>
                 </div>
-                <div class="card-action">
-                        <form id="form">
-                        </form>￼
+                <div class="card-content">
+                    <span id="card-title" class="card-title">Loading . . .</span>
+                    <div id="question"></div>
+                </div>
+                <div id="form" class="card-action">
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
+        <div id="message" class='col s12 center align'>
+        </div>
+    </div>
+    <div class="row">
         <div class="col s4 center-align">
-            <div class="counter center-align">0</div>
+            <div id="correct" class="counter center-align">0</div>
             <p class="counter-text">Correct Answers</p>
         </div>
         <div class="col s4 center-align">
-            <div class="counter center-align">0</div>
+            <div id="wrong" class="counter center-align">0</div>
             <p class="counter-text">Wrong Answers</p>
         </div>
         <div class="col s4 center-align">
-            <div class="counter">0</div>
+            <div id="skip" class="counter">0</div>
             <p class="counter-text">Skips</p>
         </div>
     </div>
-                
+
     <script src="mybackbone.js"></script>
     
     <div class="footer"></div>
